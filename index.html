@@ -1,9 +1,855 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ZZZ小队 — 垃圾分类项目提案</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1: #0f172a;
+      --bg2: #0b2447;
+      --card: #ffffff;
+      --muted: #6b7280;
+      --accent: #16a34a;
+      --glass: rgba(255,255,255,0.06);
+      --shadow: 0 6px 18px rgba(2,6,23,0.45);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:'Noto Sans SC', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(135deg,var(--bg1),var(--bg2));
+      color: #0b1220;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:40px 20px;
+      min-height:100vh;
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      gap:20px;
+    }
 
-<p>Hello 大家好</p>
-<p>我是霸都丶傲天，这是我的个人网站。 </p>
-<p>很高兴你来到这里, 你可以在以下的网站找到我</p>
+    .wrap{
+      width:100%;
+      max-width:980px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.96));
+      border-radius:14px;
+      padding:28px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
 
-<ul>
-  <li> <a href="https://www.zhihu.com/people/AJLoveChina">知乎</a> </li>
-  <li> <a href="http://hejie.nigeerhuo.com">我的博客(已经不更细了,现在在知乎写文章)</a> </li>
-</ul>
+    header{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      margin-bottom:18px;
+    }
+    .logo{
+      width:84px;
+      height:84px;
+      border-radius:14px;
+      background: linear-gradient(135deg,#10b981,#06b6d4);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
+      font-weight:700;
+      font-size:20px;
+      box-shadow:0 8px 24px rgba(2,6,23,0.35);
+    }
+    .title{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+    }
+    .title h1{
+      margin:0;
+      font-size:20px;
+      color:#06233a;
+    }
+    .title p{
+      margin:0;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .meta{
+      margin-top:12px;
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+    .card{
+      background:var(--glass);
+      border-radius:10px;
+      padding:14px;
+      flex:1;
+      min-width:220px;
+      color:#06233a;
+      box-shadow: 0 4px 12px rgba(2,6,23,0.08);
+    }
+    .card h3{
+      margin:0 0 8px 0;
+      font-size:14px;
+    }
+    .members-list{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      margin-top:6px;
+    }
+    .member{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      background:rgba(255,255,255,0.8);
+      border-radius:8px;
+      padding:8px 10px;
+      box-shadow: inset 0 -1px 0 rgba(0,0,0,0.02);
+      font-size:13px;
+      color:#06233a;
+    }
+    .avatar{
+      width:40px;
+      height:40px;
+      border-radius:8px;
+      background:linear-gradient(135deg,#ef4444,#f97316);
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      font-size:13px;
+    }
+
+    main{
+      margin-top:20px;
+    }
+
+    section.proposal{
+      padding:18px;
+      background:linear-gradient(180deg, #ffffff, #fbfbfd);
+      border-radius:12px;
+      box-shadow: 0 6px 20px rgba(2,6,23,0.04);
+    }
+    .section-title{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:12px;
+    }
+    .badge{
+      background:linear-gradient(135deg,#06b6d4,#0ea5a6);
+      color:white;
+      padding:8px 12px;
+      border-radius:10px;
+      font-weight:700;
+      font-size:13px;
+    }
+    h2{
+      margin:0;
+      color:#06233a;
+      font-size:16px;
+    }
+
+    .content ol, .content ul{
+      margin:12px 0 12px 18px;
+      color:#14233a;
+      line-height:1.65;
+    }
+    .content p{margin:8px 0;color:#1f2937}
+    .highlight{
+      background:linear-gradient(90deg, rgba(22,163,74,0.08), rgba(14,165,233,0.06));
+      border-left:4px solid var(--accent);
+      padding:10px 12px;
+      border-radius:8px;
+      margin:12px 0;
+      color:#063b2b;
+    }
+
+    .note{
+      font-size:13px;
+      color:var(--muted);
+      margin-top:8px;
+    }
+
+    footer{
+      margin-top:18px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .cta{
+      background:linear-gradient(90deg,#06b6d4,#10b981);
+      color:white;
+      padding:10px 14px;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:700;
+      box-shadow:0 8px 18px rgba(6,95,70,0.12);
+      font-size:13px;
+    }
+
+    /* 调查报告样式 */
+    .survey-section {
+      margin-bottom: 30px;
+      background: linear-gradient(180deg, #ffffff, #fbfbfd);
+      border-radius: 12px;
+      padding: 18px;
+      box-shadow: 0 6px 20px rgba(2,6,23,0.04);
+    }
+    .survey-section h3 {
+      color: #06233a;
+      font-size: 16px;
+      margin-top: 0;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .survey-section h3:before {
+      content: '';
+      display: block;
+      width: 4px;
+      height: 1em;
+      background: linear-gradient(135deg, #06b6d4, #0ea5a6);
+      border-radius: 2px;
+    }
+    .survey-section table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+      background-color: white;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .survey-section th, .survey-section td {
+      border: 1px solid #e2e8f0;
+      padding: 12px 15px;
+      text-align: left;
+    }
+    .survey-section th {
+      background-color: var(--accent);
+      color: white;
+      font-weight: bold;
+    }
+    .survey-section tr:nth-child(even) {
+      background-color: #f8fafc;
+    }
+    .survey-section tr:hover {
+      background-color: #f1f5f9;
+    }
+    .survey-section .note {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+    .matrix-header {
+      background-color: var(--bg2) !important;
+    }
+
+    @media (max-width:720px){
+      .meta{flex-direction:column}
+      header{align-items:flex-start}
+      .logo{width:64px;height:64px;font-size:18px}
+      .survey-section table {
+        font-size: 12px;
+      }
+      .survey-section th, .survey-section td {
+        padding: 8px 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap" role="main">
+    <header>
+      <div class="logo">ZZZ</div>
+      <div class="title">
+        <h1>ZZZ小队 — 垃圾分类项目提案</h1>
+        <p>来自 山东大学 计算机科学与技术学院 — 课程项目</p>
+        <div class="meta" aria-hidden="false">
+          <div class="card" style="flex-basis:46%">
+            <h3>团队名称</h3>
+            <div>ZZZ小队</div>
+          </div>
+          <div class="card" style="flex-basis:46%">
+            <h3>团队成员</h3>
+            <div class="members-list" aria-label="成员列表">
+              <div class="member">
+                <div class="avatar">JY</div>
+                <div><strong>张景岳</strong><div style="font-size:12px;color:var(--muted)">学号：202200130193</div></div>
+              </div>
+              <div class="member">
+                <div class="avatar">LY</div>
+                <div><strong>刘易哲</strong><div style="font-size:12px;color:var(--muted)">学号：202200130103</div></div>
+              </div>
+              <div class="member">
+                <div class="avatar">LZ</div>
+                <div><strong>李泽钊</strong><div style="font-size:12px;color:var(--muted)">学号：202200130007</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="proposal" aria-labelledby="proposal-title">
+        <div class="section-title">
+          <div class="badge">项目提案</div>
+          <h2 id="proposal-title">垃圾分类</h2>
+        </div>
+
+        <div class="content">
+          <h3>团队介绍</h3>
+          <p>该小队是山东大学计算机科学与技术学院纯血小队，旨在完美的拿到该课程的学分。</p>
+
+          <h3>1. 问题陈述</h3>
+          <ol>
+            <li>
+              <strong>1.1 背景</strong>
+              <p>随着城市化进程加快，垃圾产量持续上升，垃圾分类与回收成为亟待解决的社会性问题。许多城市已经出台了垃圾分类政策，但在日常生活中，大部分人依旧感到困惑：某些物品到底是可回收垃圾、有害垃圾，还是厨余垃圾？这一认知缺口不仅降低了垃圾分类政策的执行效果，还导致资源浪费与环境污染。同时，消费者在购物时依然缺乏便利的工具来判断商品是否环保，导致环保意识难以落地。</p>
+            </li>
+
+            <li>
+              <strong>1.2 问题</strong>
+              <p>关键问题是：缺少一款能实时识别垃圾类别并提供可信环保信息的便捷工具。具体体现在：</p>
+              <ul>
+                <li><strong>分类困难：</strong> 很多人无法快速判断垃圾类型，尤其是一些包装复杂或材质混合的物品。</li>
+                <li><strong>信息不透明：</strong> 商品生产过程的环保属性缺乏直观展示，用户难以知晓自己的选择对环境的长期影响。</li>
+                <li><strong>缺少激励：</strong> 分类和绿色消费缺乏即时反馈，用户难以保持长期参与。</li>
+                <li><strong>社交互动不足：</strong> 个人环保行为缺乏共享和互相激励的渠道。</li>
+              </ul>
+            </li>
+
+            <li>
+              <strong>1.3 为什么重要？</strong>
+              <p>解决这一问题的意义重大：</p>
+              <ul>
+                <li>提升垃圾分类准确率：借助实时图像识别技术，用户只需用手机摄像头对准物品即可获得分类结果，减少错误投放。</li>
+                <li>推动绿色消费行为：通过识别商品并提供可回收性与环保属性信息，帮助消费者做出更理性的选择。</li>
+                <li>促进社会意识养成：提供即时反馈和环保积分，让用户直观感受到自己对环境的正向贡献，培养环保习惯。</li>
+                <li>形成社区效应：用户可以分享经验、上传难分类物品的照片，进一步完善数据库，这也是一种公民科学实践。</li>
+              </ul>
+            </li>
+
+            <li>
+              <strong>1.4 为什么智能手机应用是合适的解决方案？</strong>
+              <ul>
+                <li><strong>实时识别：</strong> 通过摄像头采集图像，结合深度学习模型实现垃圾自动分类，结果即时呈现。用户不再需要查找复杂的垃圾分类指南。</li>
+                <li><strong>传感器与数据结合：</strong> 除了图像识别，GPS还能提供本地回收点位置，推送功能可提醒垃圾投放时间或环保活动。</li>
+                <li><strong>交互方式自然：</strong> 移动端的交互方式也更自然，比网站更适合即时、碎片化的使用场景。</li>
+              </ul>
+            </li>
+          </ol>
+
+          <div class="highlight" role="note">
+            符合度说明 —— 新颖性：将实时图像识别与垃圾分类结合，避免了单纯依赖条码/标签的方式，更直观、场景化。可行性：基于现有的深度学习模型即可实现物体识别，结合垃圾分类数据库即可落地。范围：完全契合"健康、福祉和环境可持续性"主题，并通过用户参与实现"公民科学"。合规性：非交友类应用，不涉及单纯的运动/卡路里追踪功能。
+          </div>
+
+          <h3>数据收集计划</h3>
+          
+          <!-- 调查报告内容开始 -->
+          <div class="survey-section">
+            <h3>1. 【单选】您平均每周有意识地进行垃圾分类的频率是？[单选题]</h3>
+            <table>
+              <tr>
+                <th>选项</th>
+                <th>小计</th>
+                <th>比例</th>
+              </tr>
+              <tr>
+                <td>总是</td>
+                <td>1</td>
+                <td>9.09%</td>
+              </tr>
+              <tr>
+                <td>经常</td>
+                <td>2</td>
+                <td>18.18%</td>
+              </tr>
+              <tr>
+                <td>偶尔</td>
+                <td>0</td>
+                <td>0%</td>
+              </tr>
+              <tr>
+                <td>很少</td>
+                <td>5</td>
+                <td>45.45%</td>
+              </tr>
+              <tr>
+                <td>从不</td>
+                <td>3</td>
+                <td>27.27%</td>
+              </tr>
+            </table>
+            <div class="note">本题有效填写人次: 11</div>
+          </div>
+
+          <div class="survey-section">
+            <h3>2. 【量表-重要性】请评估以下因素对您进行垃圾分类的影响程度（1=非常不重要，5=非常重要）：[矩阵量表题]</h3>
+            <div class="note">该矩阵平均分：3.48</div>
+            <table>
+              <tr class="matrix-header">
+                <th>题目\选项</th>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+                <th>平均分</th>
+              </tr>
+              <tr>
+                <td>社区规定/奖惩</td>
+                <td>0(0%)</td>
+                <td>1(9.09%)</td>
+                <td>5(45.45%)</td>
+                <td>4(36.36%)</td>
+                <td>1(9.09%)</td>
+                <td>3.45</td>
+              </tr>
+              <tr>
+                <td>个人环保意识</td>
+                <td>0(0%)</td>
+                <td>1(9.09%)</td>
+                <td>4(36.36%)</td>
+                <td>5(45.45%)</td>
+                <td>1(9.09%)</td>
+                <td>3.55</td>
+              </tr>
+              <tr>
+                <td>分类设施的便利性</td>
+                <td>1(9.09%)</td>
+                <td>2(18.18%)</td>
+                <td>1(9.09%)</td>
+                <td>3(27.27%)</td>
+                <td>4(36.36%)</td>
+                <td>3.64</td>
+              </tr>
+              <tr>
+                <td>对分类知识的掌握程度</td>
+                <td>2(18.18%)</td>
+                <td>1(9.09%)</td>
+                <td>3(27.27%)</td>
+                <td>2(18.18%)</td>
+                <td>3(27.27%)</td>
+                <td>3.27</td>
+              </tr>
+              <tr>
+                <td><strong>小计</strong></td>
+                <td>3(6.82%)</td>
+                <td>5(11.36%)</td>
+                <td>13(29.55%)</td>
+                <td>14(31.82%)</td>
+                <td>9(20.45%)</td>
+                <td>3.48</td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="survey-section">
+            <h3>3. 【多选】您在垃圾分类时遇到的主要困难是？[多选题]</h3>
+            <table>
+              <tr>
+                <th>选项</th>
+                <th>小计</th>
+                <th>比例</th>
+              </tr>
+              <tr>
+                <td>记不清分类规则</td>
+                <td>7</td>
+                <td>63.64%</td>
+              </tr>
+              <tr>
+                <td>某些物品材质复杂，难以判断</td>
+                <td>8</td>
+                <td>72.73%</td>
+              </tr>
+              <tr>
+                <td>时间匆忙，嫌麻烦</td>
+                <td>9</td>
+                <td>81.82%</td>
+              </tr>
+              <tr>
+                <td>社区分类桶标识不清</td>
+                <td>2</td>
+                <td>18.18%</td>
+              </tr>
+              <tr>
+                <td>其他:</td>
+                <td>0</td>
+                <td>0%</td>
+              </tr>
+            </table>
+            <div class="note">本题有效填写人次: 11</div>
+          </div>
+
+          <div class="survey-section">
+            <h3>4. 【量表-满意度】您对目前获取垃圾分类信息的渠道（如宣传栏、小程序等）的满意度是？[单选题]</h3>
+            <table>
+              <tr>
+                <th>选项</th>
+                <th>小计</th>
+                <th>比例</th>
+              </tr>
+              <tr>
+                <td>非常满意</td>
+                <td>0</td>
+                <td>0%</td>
+              </tr>
+              <tr>
+                <td>比较满意</td>
+                <td>5</td>
+                <td>45.45%</td>
+              </tr>
+              <tr>
+                <td>一般</td>
+                <td>5</td>
+                <td>45.45%</td>
+              </tr>
+              <tr>
+                <td>不太满意</td>
+                <td>0</td>
+                <td>0%</td>
+              </tr>
+              <tr>
+                <td>非常不满意</td>
+                <td>1</td>
+                <td>9.09%</td>
+              </tr>
+            </table>
+            <div class="note">本题有效填写人次: 11</div>
+          </div>
+
+          <div class="survey-section">
+            <h3>5. 【量表-需求度】您认为一款垃圾分类APP具备以下功能有多必要？（1=非常不必要，5=非常必要）[矩阵量表题]</h3>
+            <div class="note">该矩阵平均分：3.27</div>
+            <table>
+              <tr class="matrix-header">
+                <th>题目\选项</th>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+                <th>平均分</th>
+              </tr>
+              <tr>
+                <td>图像识别垃圾类别</td>
+                <td>1(9.09%)</td>
+                <td>0(0%)</td>
+                <td>1(9.09%)</td>
+                <td>2(18.18%)</td>
+                <td>7(63.64%)</td>
+                <td>4.27</td>
+              </tr>
+              <tr>
+                <td>文字搜索分类</td>
+                <td>1(9.09%)</td>
+                <td>1(9.09%)</td>
+                <td>4(36.36%)</td>
+                <td>4(36.36%)</td>
+                <td>1(9.09%)</td>
+                <td>3.27</td>
+              </tr>
+              <tr>
+                <td>本地回收点地图</td>
+                <td>2(18.18%)</td>
+                <td>3(27.27%)</td>
+                <td>3(27.27%)</td>
+                <td>3(27.27%)</td>
+                <td>0(0%)</td>
+                <td>2.64</td>
+              </tr>
+              <tr>
+                <td>环保知识科普</td>
+                <td>2(18.18%)</td>
+                <td>2(18.18%)</td>
+                <td>4(36.36%)</td>
+                <td>1(9.09%)</td>
+                <td>2(18.18%)</td>
+                <td>2.91</td>
+              </tr>
+              <tr>
+                <td><strong>小计</strong></td>
+                <td>6(13.64%)</td>
+                <td>6(13.64%)</td>
+                <td>12(27.27%)</td>
+                <td>10(22.73%)</td>
+                <td>10(22.73%)</td>
+                <td>3.27</td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="survey-section">
+            <h3>6. 【排序】请对您最期待的三大APP功能进行排序（1为最期待，3为第三期待）：[排序题]</h3>
+            <table>
+              <tr>
+                <th>选项</th>
+                <th>综合得分</th>
+                <th>第1位</th>
+                <th>第2位</th>
+                <th>第3位</th>
+                <th>第4位</th>
+                <th>第5位</th>
+                <th>小计</th>
+              </tr>
+              <tr>
+                <td>图像识别分类</td>
+                <td>4</td>
+                <td>8(72.73%)</td>
+                <td>0(0%)</td>
+                <td>0(0%)</td>
+                <td>1(9.09%)</td>
+                <td>2(18.18%)</td>
+                <td>11</td>
+              </tr>
+              <tr>
+                <td>个性化投放提醒</td>
+                <td>3</td>
+                <td>2(22.22%)</td>
+                <td>4(44.44%)</td>
+                <td>1(11.11%)</td>
+                <td>2(22.22%)</td>
+                <td>0(0%)</td>
+                <td>9</td>
+              </tr>
+              <tr>
+                <td>社区互动/排行榜</td>
+                <td>2.55</td>
+                <td>0(0%)</td>
+                <td>3(30%)</td>
+                <td>3(30%)</td>
+                <td>3(30%)</td>
+                <td>1(10%)</td>
+                <td>10</td>
+              </tr>
+              <tr>
+                <td>环保积分与奖励</td>
+                <td>2.36</td>
+                <td>1(11.11%)</td>
+                <td>1(11.11%)</td>
+                <td>4(44.44%)</td>
+                <td>2(22.22%)</td>
+                <td>1(11.11%)</td>
+                <td>9</td>
+              </tr>
+              <tr>
+                <td>商品环保信息查询</td>
+                <td>1.55</td>
+                <td>0(0%)</td>
+                <td>2(28.57%)</td>
+                <td>2(28.57%)</td>
+                <td>0(0%)</td>
+                <td>3(42.86%)</td>
+                <td>7</td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="survey-section">
+            <h3>7. 【单选】您能接受的APP启动图像识别功能的速度大约是？[单选题]</h3>
+            <table>
+              <tr>
+                <th>选项</th>
+                <th>小计</th>
+                <th>比例</th>
+              </tr>
+              <tr>
+                <td>2秒以内</td>
+                <td>3</td>
+                <td>27.27%</td>
+              </tr>
+              <tr>
+                <td>3~5秒</td>
+                <td>5</td>
+                <td>45.45%</td>
+              </tr>
+              <tr>
+                <td>5秒以上也能接受，只要准确</td>
+                <td>3</td>
+                <td>27.27%</td>
+              </tr>
+            </table>
+            <div class="note">本题有效填写人次: 11</div>
+          </div>
+
+          <div class="survey-section">
+            <h3>8. 【单选-同意度】您是否同意"通过APP与朋友比较环保成就，会激励我更认真地垃圾分类"？[单选题]</h3>
+            <table>
+              <tr>
+                <th>选项</th>
+                <th>小计</th>
+                <th>比例</th>
+              </tr>
+              <tr>
+                <td>非常同意</td>
+                <td>1</td>
+                <td>9.09%</td>
+              </tr>
+              <tr>
+                <td>同意</td>
+                <td>5</td>
+                <td>45.45%</td>
+              </tr>
+              <tr>
+                <td>中立</td>
+                <td>1</td>
+                <td>9.09%</td>
+              </tr>
+              <tr>
+                <td>不同意</td>
+                <td>4</td>
+                <td>36.36%</td>
+              </tr>
+              <tr>
+                <td>非常不同意</td>
+                <td>0</td>
+                <td>0%</td>
+              </tr>
+            </table>
+            <div class="note">本题有效填写人次: 11</div>
+          </div>
+
+          <div class="survey-section">
+            <h3>9. 【单选】您的年龄段是？[单选题]</h3>
+            <table>
+              <tr>
+                <th>选项</th>
+                <th>小计</th>
+                <th>比例</th>
+              </tr>
+              <tr>
+                <td>18岁以下</td>
+                <td>0</td>
+                <td>0%</td>
+              </tr>
+              <tr>
+                <td>18-25岁</td>
+                <td>8</td>
+                <td>72.73%</td>
+              </tr>
+              <tr>
+                <td>26-35岁</td>
+                <td>1</td>
+                <td>9.09%</td>
+              </tr>
+              <tr>
+                <td>36-45岁</td>
+                <td>1</td>
+                <td>9.09%</td>
+              </tr>
+              <tr>
+                <td>46岁及以上</td>
+                <td>1</td>
+                <td>9.09%</td>
+              </tr>
+            </table>
+            <div class="note">本题有效填写人次: 11</div>
+          </div>
+
+          <div class="survey-section">
+            <h3>10. 【单选】您目前的长期居住地类型是？[单选题]</h3>
+            <table>
+              <tr>
+                <th>选项</th>
+                <th>小计</th>
+                <th>比例</th>
+              </tr>
+              <tr>
+                <td>一线/新一线城市</td>
+                <td>4</td>
+                <td>36.36%</td>
+              </tr>
+              <tr>
+                <td>其他城市</td>
+                <td>2</td>
+                <td>18.18%</td>
+              </tr>
+              <tr>
+                <td>县城/乡镇</td>
+                <td>4</td>
+                <td>36.36%</td>
+              </tr>
+              <tr>
+                <td>农村</td>
+                <td>1</td>
+                <td>9.09%</td>
+              </tr>
+            </table>
+            <div class="note">本题有效填写人次: 11</div>
+          </div>
+
+          <div class="survey-section">
+            <h3>11. 【单选】您是否已为人父母 [单选题]</h3>
+            <table>
+              <tr>
+                <th>选项</th>
+                <th>小计</th>
+                <th>比例</th>
+              </tr>
+              <tr>
+                <td>是</td>
+                <td>4</td>
+                <td>36.36%</td>
+              </tr>
+              <tr>
+                <td>否</td>
+                <td>7</td>
+                <td>63.64%</td>
+              </tr>
+            </table>
+            <div class="note">本题有效填写人次: 11</div>
+            
+            <h4>请问：您认为此类APP是否适合用于儿童的环保教育？[单选题]</h4>
+            <table>
+              <tr>
+                <th>选项</th>
+                <th>小计</th>
+                <th>比例</th>
+              </tr>
+              <tr>
+                <td>是</td>
+                <td>3</td>
+                <td>75%</td>
+              </tr>
+              <tr>
+                <td>否</td>
+                <td>0</td>
+                <td>0%</td>
+              </tr>
+              <tr>
+                <td>不确定</td>
+                <td>1</td>
+                <td>25%</td>
+              </tr>
+            </table>
+            <div class="note">本题有效填写人次: 4</div>
+          </div>
+
+          <div class="survey-section">
+            <h3>12. 【开放式】请写下您对设想中的这款垃圾分类APP的任何其他期待或顾虑。[填空题]</h3>
+            <p>题目平均分之和：27</p>
+          </div>
+          <!-- 调查报告内容结束 -->
+
+        </div>
+
+        <footer>
+          <div style="font-size:13px;color:var(--muted)">最后更新：调查报告已整合到数据收集计划中</div>
+          <a class="cta" href="#" onclick="window.print();return false;">打印 / 导出</a>
+        </footer>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
